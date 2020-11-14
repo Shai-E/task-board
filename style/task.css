@@ -1,0 +1,94 @@
+.task {
+    display: flex;
+    flex-direction: column;
+    background-image: url("../assets/images/notebgyellow.png");
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    height: 250px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.task:hover {
+    transform: scale(1.1) ;
+}
+
+
+.task > *{
+    margin-left: 8px;
+}
+
+.task-textarea {
+    margin-bottom: 2px;
+    margin-top: -25px;
+    height: 160px;
+    width: 162px;
+    resize: none;
+    overflow-x: hidden;
+    border: none;
+    background: none;
+}
+
+.task-date, .task-time {
+    width: 100px;
+    font-weight: bold;
+}
+
+.task-pin {
+    position: relative;
+    top:-20px;
+    width: 40px;
+    left: 65px;
+}
+
+.close-task {
+    position: relative;
+    display: none;
+    top: -194px;
+    left: 0px;
+    color:#0000004b;
+    cursor: pointer;
+}
+
+.copy-task{
+    position: relative;
+    top: -194px;
+    left: -30px;
+    color:#0000004b;
+    cursor: pointer;
+}
+
+.close-task:hover, .copy-task:hover {
+    color:#000000;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 768px){
+
+    .task {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+        height: 250px;
+    }
+
+    /* .task:hover {
+        filter: sepia() ;
+    } */
+
+    .task-textarea {
+        width: 132px;
+    }
+
+    .task-pin {
+        left: 50px;
+    }
+    .copy-task{
+        left: -6px;
+    }
+}

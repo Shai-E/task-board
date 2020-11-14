@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link rel="stylesheet" href="./style/main.css">
+        <link rel="stylesheet" href="./style/task.css">
+        <link rel="stylesheet" href="./style/form.css">
+        <link rel="stylesheet" href="./style/fadeInAnimation.css">
+        <title>Task Board</title>
+    </head>
+    <body onload="displayTasks();displayNotice();">
+        <div class="task-board-app">
+            <header>
+                <h1>My Task Board</h1>
+            </header>
+            <main>
+                <div class="container">
+                    <div class="row">
+                        <form>
+                            <textarea placeholder="Start writing your task here!" id="content" onkeyup="formatContent();saveFormValueToLocalStorage();"></textarea>
+                            <div>
+                                <div>
+                                    <input class="input" id="time" type="time" onchange="saveFormValueToLocalStorage();"/>
+                                    <input class="input" id="date" type="date" onchange="validateDate();saveFormValueToLocalStorage();"/>
+                                </div>
+                                <div>
+                                    <button id="create" type="button" class="btn btn-primary" onclick="createTask();saveTasksToLocalStorage();">Create Task</button>
+                                    <button type="reset" class="btn btn-secondary" onclick="removeFormValuesFromLocalStorage()">Clear</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div id="notice" class="restore-buttons">
+                            Lets start working! What's your first task?
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tasks" id="tasks">
+                            
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer>Creared by Shai Eliav</footer>
+        </div>
+    </body>
+    <script src="./libraries/moment-with-locales.min.js"></script>
+    <script src="./main.js"></script>
+    </html>
