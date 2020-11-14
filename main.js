@@ -8,12 +8,13 @@ formContent.value = JSON.parse(localStorage.getItem("formContent")) || "";
 formDate.value = JSON.parse(localStorage.getItem("formDate")) || "";
 formTime.value = JSON.parse(localStorage.getItem("formTime")) || "";
 
-let taskIdCounter = tasks.length + 1;
+let taskIdCounter = JSON.parse(localStorage.getItem("taskIdCounter")) || tasks.length + 1;
 let currentTaskId;
 
 function saveTasksToLocalStorage() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
     localStorage.setItem("deletedTasks", JSON.stringify(deletedTasks));
+    localStorage.setItem("taskIdCounter", JSON.stringify(taskIdCounter));
 }
 
 function saveFormValueToLocalStorage() {
