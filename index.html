@@ -27,8 +27,8 @@
                                     <input class="input" id="date" type="date" onchange="validateDate();saveFormValueToLocalStorage();"/>
                                 </div>
                                 <div>
-                                    <button id="create" type="button" class="btn btn-primary" onclick="createTask();saveTasksToLocalStorage();">Create Task</button>
-                                    <button type="reset" class="btn btn-secondary" onclick="removeFormValuesFromLocalStorage()">Clear</button>
+                                    <button id="create" type="button" class="btn btn-primary" onclick="createTask();saveTasksToLocalStorage();saveFormValueToLocalStorage();displayNotice();">Create Task</button>
+                                    <button type="reset" class="btn btn-secondary" onclick="removeFormValuesFromLocalStorage();">Clear</button>
                                 </div>
                             </div>
                         </form>
@@ -45,9 +45,15 @@
                     </div>
                 </div>
             </main>
-            <footer>Creared by Shai Eliav</footer>
+            <footer>Created by Shai Eliav</footer>
         </div>
     </body>
     <script src="./libraries/moment-with-locales.min.js"></script>
-    <script src="./main.js"></script>
+    <script src="./js-files/main.js"></script>
+    <script src="./js-files/local-storage.js"></script>
+    <script src="./js-files/task.js"></script>
+    <script src="./js-files/validations.js"></script>
+    <script src="./js-files/visual-effects.js"></script>
+    <script src="./js-files/restore.js"></script>
+
     </html>

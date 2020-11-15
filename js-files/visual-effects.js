@@ -113,7 +113,8 @@ function displayNotice(message = undefined) {
                 <button onclick="deleteRemovedTasks();saveTasksToLocalStorage();" class="btn btn-danger">Permanently Delete Removed Tasks</button>
         `;
         return;
-    } else if (localStorage.length === 0) {
+    } else if ( JSON.parse(localStorage.getItem("tasks")).length === 0 &&
+                JSON.parse(localStorage.getItem("deletedTasks")).length === 0) {
         notice.style.backgroundColor = "#4C46EC8a";
         notice.innerHTML = `Lets start working! What's your first task?`;
         return;

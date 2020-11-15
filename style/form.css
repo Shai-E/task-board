@@ -65,7 +65,6 @@ form > div > div:last-of-type {
         margin-top: -10px;
         display: flex;
         flex-direction: column;
-        /* justify-content: flex-end; */
         margin-bottom: 5px;
     }
     .input {
