@@ -20,25 +20,40 @@
                 <div class="container">
                     <div class="row">
                         <form>
-                            <textarea placeholder="Start writing your task here!" id="content" onkeyup="formatContent();saveFormValueToLocalStorage();"></textarea>
+                            <textarea placeholder="Start writing your task here!" id="content" onchange="resetContentInputDisplay()" onkeyup="formatContent('#content');saveFormValueToLocalStorage();"></textarea>
                             <div>
                                 <div>
                                     <input class="input" id="time" type="time" onchange="saveFormValueToLocalStorage();"/>
                                     <input class="input" id="date" type="date" onchange="validateDate();saveFormValueToLocalStorage();"/>
+                                        <div>
+                                            <span class="fas fa-thumbtack" style="color:#ec4646b9;text-shadow:0px 1px 2px; padding-top: 10px;padding-bottom: 8px;"> &nbsp; &rarr; &nbsp;</span>
+                                            <!-- blue -->
+                                            <input type="radio" name="color" value="5">
+                                            <!-- sky blue -->
+                                            <input type="radio" name="color" value="6">
+                                            <!-- red -->
+                                            <input type="radio" name="color" value="1">
+                                            <!-- pink -->
+                                            <input type="radio" name="color" value="4">
+                                            <!-- gold -->
+                                            <input type="radio" name="color" value="2">
+                                            <!-- light green -->
+                                            <input type="radio" name="color" value="3">
+                                        </div>
                                 </div>
                                 <div>
-                                    <button id="create" type="button" class="btn btn-primary" onclick="createTask();saveTasksToLocalStorage();saveFormValueToLocalStorage();displayNotice();">Create Task</button>
+                                    <button id="create" type="button" class="btn btn-primary" onclick="createTask();saveTasksToLocalStorage();saveFormValueToLocalStorage();">Create Task</button>
                                     <button type="reset" class="btn btn-secondary" onclick="removeFormValuesFromLocalStorage();">Clear</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="row">
+                    <div class="row row-restore">
                         <div id="notice" class="restore-buttons">
                             Lets start working! What's your first task?
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row row-tasks">
                         <div class="tasks" id="tasks">
                             
                         </div>
@@ -55,5 +70,5 @@
     <script src="./js-files/validations.js"></script>
     <script src="./js-files/visual-effects.js"></script>
     <script src="./js-files/restore.js"></script>
-    </html>
 
+    </html>

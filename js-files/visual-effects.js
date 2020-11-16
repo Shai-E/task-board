@@ -1,14 +1,14 @@
 // functions responsible for pin effect on hover.
 
-function hoverPinEffect(taskId) {
-    document.querySelector(`#pin${taskId}`).src = "./assets/images/pinoutwithshadow.png";
-    document.querySelector(`#close${taskId}`).style.display = "inline";
-}
+function hoverPinEffect(taskId, pinColor) {
+    document.querySelector(`#pin${taskId}`).src = `./assets/images/pins/${pinColor}/out.png`;
+    document.querySelector(`#close${taskId}`).style.visibility = "visible";
+};
 
-function outPinEffect(taskId) {
-    document.querySelector(`#pin${taskId}`).src = "./assets/images/pininwithshadow.png";
-    document.querySelector(`#close${taskId}`).style.display = "none";
-}
+function outPinEffect(taskId, pinColor) {
+    document.querySelector(`#pin${taskId}`).src = `./assets/images/pins/${pinColor}/in.png`;
+    document.querySelector(`#close${taskId}`).style.visibility = "hidden";
+};
 
 // a function responsible for sorting the tasks by date and by time
 
@@ -20,7 +20,7 @@ function sortTasks() {
     // sort by time
     if (tasks.length < 2) {
         return;
-    }
+    };
     let dateToCheck;
     let arrs = [];
     let currArr = [];
@@ -28,17 +28,17 @@ function sortTasks() {
     for (let i = 0; i < tasks.length; i++) {
         if (tasks[i].date === dateToCheck) {
             continue;
-        }
+        };
         dateToCheck = tasks[i].date;
         currArr.push(tasks[i]);
         for (let j = tasks.length - 1; j > i; j--) {
             if (dateToCheck === tasks[j].date) {
                 currArr.push(tasks[j]);
-            }
-        }
+            };
+        };
         arrs.push(currArr);
         currArr = [];
-    }
+    };
 
     for (let arr of arrs) {
         arr.sort(function (a, b) {
@@ -48,25 +48,25 @@ function sortTasks() {
             d = d.join("");
             return new Date(c) - new Date(d);
         });
-    }
+    };
 
     let result = [];
     for (let arr of arrs) {
         result.push(...arr);
-    }
+    };
     tasks = result;
-}
+};
 
 // functions that format the content on the form so that the first word of each sentence will start with a capital letter.
 
-function formatContent() {
-    punctuationToUse(".");
-    punctuationToUse("?");
-    punctuationToUse("!");
-}
+function formatContent(id) {
+    punctuationToUse(".", id);
+    punctuationToUse("?", id);
+    punctuationToUse("!", id);
+};
 
-function punctuationToUse(punct) {
-    const content = document.querySelector("#content");
+function punctuationToUse(punct, id) {
+    const content = document.querySelector(id);
     const stringArr = content.value.split(`${punct} `);
     let formattedArr = [];
     if (stringArr.length > 0) {
@@ -74,10 +74,10 @@ function punctuationToUse(punct) {
             let start = string.substring(0, 1).toUpperCase();
             let end = string.substring(1, string.length);
             formattedArr.push(start + end);
-        }
+        };
         content.value = formattedArr.join(`${punct} `);
-    }
-}
+    };
+};
 
 // clears form values.
 
@@ -85,7 +85,8 @@ function clearForm() {
     document.querySelector("#content").value = "";
     document.querySelector("#date").value = "";
     document.querySelector("#time").value = "";
-}
+    document.querySelector("input[name='color']:checked") ? document.querySelector("input[name='color']:checked").checked = false : "";
+};
 
 // show message and restoration buttons when appropriate.
 
@@ -118,13 +119,78 @@ function displayNotice(message = undefined) {
         notice.style.backgroundColor = "#4C46EC8a";
         notice.innerHTML = `Lets start working! What's your first task?`;
         return;
-    }
+    };
     notice.style.backgroundColor = "#4C46EC8a";
     notice.innerHTML = `Need to restore a task? <span style="cursor:pointer;margin:auto;" onclick="displayNotice('restore deleted')" class="fas fa-cog"></span>`;
-}
+};
 
 // sets input to regular display after values have been validated.
 function resetInputsDisplay() {
-    document.querySelector("#content").style.border = "1px solid transparent";
+    resetContentInputDisplay();
     document.querySelector("#date").style.border = "1px solid #dfdede";
-}
+};
+
+function resetContentInputDisplay() {
+    document.querySelector("#content").style.border = "1px solid transparent";
+};
+
+// rotate notes randomly
+
+function genRandDeg4Rotation(){
+    return Math.floor(Math.random()*20)-10;
+};
+
+function addRotationValueToTask() {
+    for(let task of tasks){
+        task.rotation = genRandDeg4Rotation();
+    };
+};
+
+function addRotationEffect() {
+    for(let task of tasks) {
+        document.querySelector(`#task${task.id}`).style.transform = `rotate(${task.rotation}deg)`;
+    };
+};
+
+function executeRotation() {
+    if(validateScreenSize()) return;
+    addRotationValueToTask();
+    addRotationEffect();
+};
+
+function focusOnTask(id) {
+    if(validateScreenSize()) return;
+    let task = document.querySelector(`#task${id}`);
+    if(!task) return;
+    let minimizer = document.querySelector(`#minimize${id}`);
+    if(minimizer)minimizer.style.visibility = "visible";
+    let rotation = 0;
+    minimizeRestOfTasks(id);
+    task.style.transform = `scale(1.5) rotate(${rotation}deg)`;
+    task.style.zIndex = `10`;
+};
+
+function unfocusOnTask(id) {
+    if(validateScreenSize()) return;
+    let task = document.querySelector(`#task${id}`);
+    if(!task) return;
+    let minimizer = document.querySelector(`#minimize${id}`);
+    if(minimizer)minimizer.style.visibility = "hidden";
+    let rotation = tasks.find(task=>task.id===id).rotation;
+    task.style.transform = `rotate(${rotation}deg) scale(1)`;
+    task.style.zIndex = `0`;
+};
+
+function validateScreenSize() {
+    if(window.innerWidth<768){
+        return true;
+    };
+    return false;
+};
+
+function minimizeRestOfTasks(id) {
+    let tasksToMonomize = tasks.filter(task=>task.id!==id);
+    for (let task of tasksToMonomize){
+        unfocusOnTask(task.id);
+    };
+};

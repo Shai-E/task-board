@@ -7,10 +7,11 @@
     max-width: 200px;
     height: 250px;
     transition: transform 0.3s ease-in-out;
+    filter: saturate(50%);
 }
 
 .task:hover {
-    transform: scale(1.1) ;
+    filter: saturate(100%);
 }
 
 
@@ -27,6 +28,7 @@
     overflow-x: hidden;
     border: none;
     background: none;
+    font-family: caveat;
 }
 
 .task-date, .task-time {
@@ -41,24 +43,36 @@
     left: 65px;
 }
 
-.close-task {
-    position: relative;
-    display: none;
-    top: -194px;
-    left: 0px;
+.minimize-task{
     color:#0000004b;
     cursor: pointer;
+    visibility: hidden;
+}
+
+.close-task {
+    visibility: hidden;
+    color:#0000004b;
+    cursor: pointer;
+}
+
+.icons-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    margin-right: 30px;
+    margin-left: -85px;
+    top: -204px;
+    justify-content: space-between;
+    font-size: 13px;
 }
 
 .copy-task{
-    position: relative;
-    top: -194px;
-    left: -30px;
     color:#0000004b;
     cursor: pointer;
+    justify-self: flex-end;
 }
 
-.close-task:hover, .copy-task:hover {
+.close-task:hover, .copy-task:hover, .minimize-task:hover {
     color:#000000;
 }
 
@@ -86,5 +100,10 @@
     }
     .copy-task{
         left: -6px;
+    }
+
+    .icons-container {
+        margin-right: 10px;
+        margin-left: -85px;
     }
 }
