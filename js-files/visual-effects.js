@@ -2,59 +2,45 @@
 
 function hoverPinEffect(taskId, pinColor) {
     document.querySelector(`#pin${taskId}`).src = `./assets/images/pins/${pinColor}/out.png`;
-    document.querySelector(`#close${taskId}`).style.visibility = "visible";
+    document.querySelector(`#remove${taskId}`).style.visibility = "visible";
 };
 
 function outPinEffect(taskId, pinColor) {
     document.querySelector(`#pin${taskId}`).src = `./assets/images/pins/${pinColor}/in.png`;
-    document.querySelector(`#close${taskId}`).style.visibility = "hidden";
+    document.querySelector(`#remove${taskId}`).style.visibility = "hidden";
 };
 
 // a function responsible for sorting the tasks by date and by time
 
 function sortTasks() {
-    // sort by date
     tasks.sort(function (a, b) {
-        return new Date(a.date).getTime() - new Date(b.date).getTime();
+        a = formatToFullDate({date: a.date, time: a.time});
+        b = formatToFullDate({date: b.date, time: b.time});
+        return a-b;
     });
-    // sort by time
-    if (tasks.length < 2) {
-        return;
-    };
-    let dateToCheck;
-    let arrs = [];
-    let currArr = [];
+};
 
-    for (let i = 0; i < tasks.length; i++) {
-        if (tasks[i].date === dateToCheck) {
-            continue;
+function formatToFullDate(task) {
+    let year = new Date(task.date).getFullYear();
+    let month = new Date(task.date).getMonth();
+    let day = new Date(task.date).getDate();
+    if(task.time){
+        let time = task.time.split(":");
+        let hours = time[0];
+        let minutes = time[1];
+        return new Date(year, month, day, hours, minutes);
+    };
+    return new Date(year, month, day);
+};
+
+function recolorPastTasks() {
+    let now = new Date();
+    tasks.map(task=>{
+        if((formatToFullDate({date: task.date, time: task.time})<now && task.time!=="") ||
+        task.time==="" && new Date(task.date)<new Date(now.getFullYear(), now.getMonth(), now.getDate())){
+            document.querySelector(`#task${task.id}`).style.filter = "grayscale()";
         };
-        dateToCheck = tasks[i].date;
-        currArr.push(tasks[i]);
-        for (let j = tasks.length - 1; j > i; j--) {
-            if (dateToCheck === tasks[j].date) {
-                currArr.push(tasks[j]);
-            };
-        };
-        arrs.push(currArr);
-        currArr = [];
-    };
-
-    for (let arr of arrs) {
-        arr.sort(function (a, b) {
-            let c = a.time.split(":");
-            let d = b.time.split(":");
-            c = c.join("");
-            d = d.join("");
-            return new Date(c) - new Date(d);
-        });
-    };
-
-    let result = [];
-    for (let arr of arrs) {
-        result.push(...arr);
-    };
-    tasks = result;
+    });
 };
 
 // functions that format the content on the form so that the first word of each sentence will start with a capital letter.
@@ -159,6 +145,8 @@ function executeRotation() {
     addRotationEffect();
 };
 
+// enlarge task on click
+
 function focusOnTask(id) {
     if(validateScreenSize()) return;
     let task = document.querySelector(`#task${id}`);
@@ -169,7 +157,10 @@ function focusOnTask(id) {
     minimizeRestOfTasks(id);
     task.style.transform = `scale(1.5) rotate(${rotation}deg)`;
     task.style.zIndex = `10`;
+    document.querySelector("#minimizer").style.display = "block";
 };
+
+// undo enlargement
 
 function unfocusOnTask(id) {
     if(validateScreenSize()) return;
@@ -179,7 +170,12 @@ function unfocusOnTask(id) {
     if(minimizer)minimizer.style.visibility = "hidden";
     let rotation = tasks.find(task=>task.id===id).rotation;
     task.style.transform = `rotate(${rotation}deg) scale(1)`;
-    task.style.zIndex = `0`;
+    task.style.zIndex = `1`;
+    closeMinimizer();
+};
+
+function closeMinimizer(){
+    document.querySelector("#minimizer").style.display = "none";
 };
 
 function validateScreenSize() {
@@ -189,8 +185,8 @@ function validateScreenSize() {
     return false;
 };
 
-function minimizeRestOfTasks(id) {
-    let tasksToMonomize = tasks.filter(task=>task.id!==id);
+function minimizeRestOfTasks(id=undefined) {
+    let tasksToMonomize = id?tasks.filter(task=>task.id!==id):tasks;
     for (let task of tasksToMonomize){
         unfocusOnTask(task.id);
     };

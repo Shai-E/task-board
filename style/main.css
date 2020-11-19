@@ -16,6 +16,15 @@ html, body {
     background-image: url("../assets/images/bg.jpg");
 }
 
+.minimizer {
+    display: none;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
 
 header, main, footer {
     grid-column: span 12;

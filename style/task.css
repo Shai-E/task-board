@@ -8,6 +8,7 @@
     height: 250px;
     transition: transform 0.3s ease-in-out;
     filter: saturate(50%);
+    z-index: 2;
 }
 
 .task:hover {
@@ -41,6 +42,7 @@
     top:-20px;
     width: 40px;
     left: 65px;
+    cursor: pointer;
 }
 
 .minimize-task{
@@ -49,7 +51,7 @@
     visibility: hidden;
 }
 
-.close-task {
+.remove-task {
     visibility: hidden;
     color:#0000004b;
     cursor: pointer;
@@ -72,7 +74,7 @@
     justify-self: flex-end;
 }
 
-.close-task:hover, .copy-task:hover, .minimize-task:hover {
+.remove-task:hover, .copy-task:hover, .minimize-task:hover {
     color:#000000;
 }
 
@@ -81,6 +83,66 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.palette {
+    height: 0;
+    display: none;
+}
+
+.palette > input[type='radio'] {
+    position: relative;
+}
+
+.palette > input[type='radio']:nth-of-type(1) {
+    top: -227px;
+    left: 48px;
+}
+
+.palette > input[type='radio']:nth-of-type(2) {
+    top: -212px;
+    left: 22px;
+}
+.palette > input[type='radio']:nth-of-type(3) {
+    top: -212px;
+    left: 22px;
+}
+.palette > input[type='radio']:nth-of-type(4) {
+    top: -195px;
+    left: 4px;
+}
+.palette > input[type='radio']:nth-of-type(5) {
+    top: -203px;
+    left: 2px;
+}
+.palette > input[type='radio']:nth-of-type(6) {
+    top: -188px;
+    left: -7px;
+}
+.palette > input[type='radio']:nth-of-type(7) {
+    top: -203px;
+    left: -16px;
+}
+.palette > input[type='radio']:nth-of-type(8) {
+    top: -195px;
+    left: -18px;
+}
+.palette > input[type='radio']:nth-of-type(9) {
+    top: -212px;
+    left: -36px;
+}
+.palette > input[type='radio']:nth-of-type(10) {
+    top: -227px;
+    left: -44px;
+}
+.palette > input[type='radio']:nth-of-type(11) {
+    top: -212px;
+    left: -53px;
+}
+.palette > input[type='radio']:nth-of-type(12) {
+    top: -242px;
+    left: 79px;
+}
+
 
 @media only screen and (max-width: 768px){
 
@@ -105,5 +167,19 @@
     .icons-container {
         margin-right: 10px;
         margin-left: -85px;
+    }
+
+    .palette {
+        position: absolute;
+        top: 40px;
+        left: 100px;
+        width:40px;
+        z-index: 20;
+
+    }
+    
+    .palette > input[type='radio'] {
+        position: static;
+        z-index: 20;
     }
 }
