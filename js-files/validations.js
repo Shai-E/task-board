@@ -39,3 +39,10 @@ function validateInputs(inputID, inputValue , message){
     };
     return true;
 };
+
+function validateScreenSize() {
+    if(window.innerWidth<768){
+        return true;
+    };
+    return false;
+};

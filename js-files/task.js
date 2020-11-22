@@ -16,23 +16,26 @@ class Task {
                 onmouseout="outPinEffect(${this.id}, ${this.pinColor});">
             <img    class="task-pin" 
                 id="pin${this.id}" 
-                onclick="focusOnTask(${this.id});displayPalette(${this.id});"
+                onclick="focusOnTask(${this.id});togglePalette(${this.id});"
                 src="./assets/images/pins/${this.pinColor}/in.png"/>
             <textarea   class="task-textarea"
                 id="content${this.id}" 
-                onclick="focusOnTask(${this.id});hideAllPalettes();" 
+                onclick="focusOnTask(${this.id});hideAllPalettes();hideAllAlertOptions();" 
                 onkeyup="formatContent('#content${this.id}');editTask(${this.id});saveTasksToLocalStorage();">${this.content}</textarea>
-            <div class="task-date" contenteditable="true" onclick="focusOnTask(${this.id});hideAllPalettes();" id="date${this.id}" onkeyup="editDate(event, ${this.id});saveTasksToLocalStorage();">${moment(this.date).format("DD/MM/YYYY")}</div>
+            <div class="task-date" contenteditable="true" onclick="focusOnTask(${this.id});hideAllPalettes();hideAllAlertOptions();" id="date${this.id}" onkeyup="editDate(event, ${this.id});saveTasksToLocalStorage();">${moment(this.date).format("DD/MM/YYYY")}</div>
             <div class="flex">
-                <div class="task-time" contenteditable="true" id="time${this.id}" onclick="focusOnTask(${this.id});hideAllPalettes();" onkeyup="editTime(event, ${this.id});saveTasksToLocalStorage();">${this.time}</div>
+                <div class="task-time" contenteditable="true" id="time${this.id}" onclick="focusOnTask(${this.id});hideAllPalettes();hideAllAlertOptions();" onkeyup="editTime(event, ${this.id});saveTasksToLocalStorage();">${this.time}</div>
                 <div class="icons-container">
                     <div>
                         <span   class="copy-task fas fa-copy" 
                                 id="duplicate${this.id}" 
                                 onclick="duplicateTask(${this.id});saveTasksToLocalStorage();"></span>
+                        <span   class="recolor-task fas fa-palette" 
+                                id="recolor${this.id}" 
+                                onclick="togglePalette(${this.id});"></span>
                         <span   class="minimize-task fas fa-minus-circle" 
                                 id="minimize${this.id}" 
-                                onclick="unfocusOnTask(${this.id});hideAllPalettes();"></span>
+                                onclick="unfocusOnTask(${this.id});hideAllPalettes();hideAllAlertOptions();"></span>
                     </div>
                     <div>
                         <span   class="remove-task fas fa-times" 
@@ -41,7 +44,7 @@ class Task {
                     </div>
                 </div>
             </div>
-            <div id="palette${this.id}" class="palette fade-in" onclick="editPin(${this.id});saveTasksToLocalStorage();">
+            <div id="palette${this.id}" class="palette fade-in" style="display: none;" onclick="editPin(${this.id});saveTasksToLocalStorage();">
                 <input type="radio" name="palette" value="1" data-palette="white">
                 <input type="radio" name="palette" value="2" data-palette="black">
                 <input type="radio" name="palette" value="3" data-palette="orange">
@@ -75,7 +78,7 @@ function generatreRandomPinColor() {
     let pinColors = 12;
     let pinColor = Math.floor(Math.random()*(pinColors))+1;
     return pinColor;
-}
+};
 
 // this function uses the task's method to create a task after some validations.
 function createTask() {
@@ -165,15 +168,3 @@ function editPin(id) {
     hideAllPalettes();
 };
 
-function displayPalette(id) {
-    hideAllPalettes();
-    const palette = document.querySelector(`#palette${id}`);
-    palette.style.display = "block";
-};
-
-function hideAllPalettes(){
-    let palettes = document.querySelectorAll(".palette");
-    for (let palette of palettes){
-        palette.style.display = "none";
-    };
-};

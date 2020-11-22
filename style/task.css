@@ -33,7 +33,7 @@
 }
 
 .task-date, .task-time {
-    width: 100px;
+    width: 110px;
     font-weight: bold;
 }
 
@@ -68,13 +68,12 @@
     font-size: 13px;
 }
 
-.copy-task{
+.copy-task, .recolor-task{
     color:#0000004b;
     cursor: pointer;
-    justify-self: flex-end;
 }
 
-.remove-task:hover, .copy-task:hover, .minimize-task:hover {
+.remove-task:hover, .copy-task:hover, .minimize-task:hover, .recolor-task:hover {
     color:#000000;
 }
 
@@ -141,6 +140,19 @@
 .palette > input[type='radio']:nth-of-type(12) {
     top: -242px;
     left: 79px;
+}
+
+.palette > input[type='radio']:checked:after, .palette > input[type='radio']:hover:after {
+    height: 15px;
+    top: -2px;
+}
+
+.active-alert {
+    color:#f8000075;
+}
+
+.active-alert:hover {
+    color:#f80000;
 }
 
 

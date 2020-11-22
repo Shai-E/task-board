@@ -56,6 +56,7 @@ input[type="radio"]{
 }
 
 input[type='radio']:after {
+    cursor: pointer;
     width: 15px;
     height: 15px;
     border-radius: 15px;
@@ -67,95 +68,59 @@ input[type='radio']:after {
     visibility: visible;
     border: 1px solid #5e5e5efa;
 }
-input[type='radio']:checked:after {
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
-    top: -2px;
-    left: -1px;
-    position: relative;
-    content: '';
-    display: inline-block;
-    visibility: visible;
-    border: 1px solid #c7c7c7fa;
+input[type='radio']:checked:after, input[type='radio']:hover:after {
+    height: 25px;
+    top: -3px;
+}
+
+input[type='radio']:checked:hover:after {
+    cursor: auto;
 }
 
 input[type='radio']:nth-of-type(12):after {
     background-color: #F61415;
 }
-input[type='radio']:nth-of-type(12):checked:after {
-    background-color: #F61415;
-}
 input[type='radio']:nth-of-type(11):after {
-    background-color: #F513AB;
-}
-input[type='radio']:nth-of-type(11):checked:after {
     background-color: #F513AB;
 }
 input[type='radio']:nth-of-type(4):after {
     background-color: #EEB712;
 }
-input[type='radio']:nth-of-type(4):checked:after {
-    background-color: #EEB712;
-}
 input[type='radio']:nth-of-type(9):after {
-    background-color: #2715F7;
-}
-input[type='radio']:nth-of-type(9):checked:after {
     background-color: #2715F7;
 }
 input[type='radio']:nth-of-type(6):after {
     background-color: #11EC2F;
 }
-input[type='radio']:nth-of-type(6):checked:after {
-    background-color: #11EC2F;
-}
 input[type='radio']:nth-of-type(8):after {
-    background-color: #129AEE;
-}
-input[type='radio']:nth-of-type(8):checked:after {
     background-color: #129AEE;
 }
 input[type='radio']:nth-of-type(3):after {
     background-color: #F66213;
 }
-input[type='radio']:nth-of-type(3):checked:after {
-    background-color: #F66213;
-}
 input[type='radio']:nth-of-type(10):after {
-    background-color: #A718F8;
-}
-input[type='radio']:nth-of-type(10):checked:after {
     background-color: #A718F8;
 }
 input[type='radio']:nth-of-type(7):after {
     background-color: #00ffff;
 }
-input[type='radio']:nth-of-type(7):checked:after {
-    background-color: #00ffff;
-}
 input[type='radio']:nth-of-type(5):after {
-    background-color: #ffff00;
-}
-input[type='radio']:nth-of-type(5):checked:after {
     background-color: #ffff00;
 }
 input[type='radio']:nth-of-type(2):after {
     background-color: #000000;
 }
-input[type='radio']:nth-of-type(2):checked:after {
-    background-color: #000000;
-}
 input[type='radio']:nth-of-type(1):after {
-    background-color: #ffffff;
-}
-input[type='radio']:nth-of-type(1):checked:after {
     background-color: #ffffff;
 }
 input[type='radio']:nth-of-type(13):after {
     background-image: url("../assets/images/rainbow.png");
     background-position: center;
     background-size: contain;
+    background-repeat: no-repeat;
+}
+input[type='radio']:nth-of-type(13):checked:after {
+    border: 1px solid #c7c7c7fa;
 }
 
 @media only screen and (max-width: 768px){

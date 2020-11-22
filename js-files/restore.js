@@ -1,14 +1,17 @@
 // a function responsible for removing tasks by id.
 
 function removeTaskById(id) {
-    deletedTasks.push(...tasks.filter((task) => task.id === id));
-    tasks = tasks.filter((task) => task.id !== id);
-    displayNotice("restore deleted");
-    saveTasksToLocalStorage();
-    let task = document.querySelector(`#task${id}`);
-    // replaces displayTasks()
-    task.parentNode.removeChild(task);
-    closeMinimizer();
+    document.querySelector(`#task${id}`).classList = "task fade-out";
+    setTimeout(()=>{
+        deletedTasks.push(...tasks.filter((task) => task.id === id));
+        tasks = tasks.filter((task) => task.id !== id);
+        displayNotice("restore deleted");
+        saveTasksToLocalStorage();
+        let task = document.querySelector(`#task${id}`);
+        // replaces displayTasks()
+        task.parentNode.removeChild(task);
+        closeMinimizer();
+    },550);
 };
 
 // a function that removes all active tasks from task board.

@@ -178,16 +178,31 @@ function closeMinimizer(){
     document.querySelector("#minimizer").style.display = "none";
 };
 
-function validateScreenSize() {
-    if(window.innerWidth<768){
-        return true;
-    };
-    return false;
-};
-
 function minimizeRestOfTasks(id=undefined) {
     let tasksToMonomize = id?tasks.filter(task=>task.id!==id):tasks;
     for (let task of tasksToMonomize){
         unfocusOnTask(task.id);
+    };
+};
+
+function togglePalette(id) {
+    const palette = document.querySelector(`#palette${id}`);
+    if(palette.style.display === "none"){
+        displayPalette(id);
+    } else {
+        hideAllPalettes();
+    };
+};
+
+function displayPalette(id) {
+    hideAllPalettes();
+    const palette = document.querySelector(`#palette${id}`);
+    palette.style.display = "block";
+};
+
+function hideAllPalettes(){
+    let palettes = document.querySelectorAll(".palette");
+    for (let palette of palettes){
+        palette.style.display = "none";
     };
 };
